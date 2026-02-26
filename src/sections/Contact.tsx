@@ -17,10 +17,10 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@neurobunt.ru', href: 'mailto:hello@neurobunt.ru' },
-  { icon: Phone, label: 'Телефон', value: '+7 (812) 555-00-00', href: 'tel:+78125550000' },
-  { icon: MapPin, label: 'Адрес', value: 'Санкт-Петербург', href: '#' },
-  { icon: Clock, label: 'Режим работы', value: 'Пн–Пт: 9:00–19:00', href: '#' },
+  { icon: Mail,  label: 'Email',        value: 'hello@neurobunt.ru',    href: 'mailto:hello@neurobunt.ru' },
+  { icon: Phone, label: 'Телефон',      value: '+7 (995) 718-75-19',    href: 'tel:+79957187519' },
+  { icon: MapPin,label: 'Адрес',        value: 'Санкт-Петербург',       href: '#' },
+  { icon: Clock, label: 'Режим работы', value: 'Пн–Пт: 9:00–19:00',    href: '#' },
 ];
 
 const Contact = () => {
@@ -62,12 +62,12 @@ const Contact = () => {
       } else {
         const err = await response.json();
         toast.error('Ошибка отправки', {
-          description: err.error || 'Позвоните нам: +7 (812) 555-00-00',
+          description: err.error || 'Позвоните нам: +7 (995) 718-75-19',
         });
       }
     } catch {
       toast.error('Нет соединения', {
-        description: 'Позвоните нам: +7 (812) 555-00-00',
+        description: 'Позвоните нам: +7 (995) 718-75-19',
       });
     } finally {
       setIsSubmitting(false);
@@ -121,7 +121,7 @@ const Contact = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
-                    href="https://t.me/neurobunt"
+                    href="https://t.me/Neuro_bunt"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-cyber text-neon-cyan py-3 px-6 text-sm flex items-center justify-center gap-2"
@@ -244,12 +244,12 @@ const Contact = () => {
                 Позвоните или напишите — обсудим и предложим решение в течение часа.
               </p>
               <div className="flex flex-col gap-3">
-                <a href="tel:+78125550000" className="btn-primary py-3 flex items-center justify-center gap-2 text-sm">
+                <a href="tel:+79957187519" className="btn-primary py-3 flex items-center justify-center gap-2 text-sm">
                   <Phone className="w-4 h-4" />
                   Позвонить сейчас
                 </a>
                 <a
-                  href="https://t.me/neurobunt"
+                  href="https://t.me/Neuro_bunt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-cyber py-3 flex items-center justify-center gap-2 text-sm"
