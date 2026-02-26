@@ -94,18 +94,18 @@ const Hero = () => {
               <a
                 href="tel:+78125550000"
                 className="btn-cyber flex items-center gap-2 py-4 px-6"
-                aria-label="Позвонить нам: +7 (812) 555-00-00"
+                aria-label="Позвонить нам: +7 995 718 7519"
               >
                 <Phone className="w-4 h-4" aria-hidden="true" />
-                <span>+7 (812) 555-00-00</span>
+                <span>+7 995 718 7519</span>
               </a>
 
               <a
-                href="https://t.me/neurobunt"
+                href="https://t.me/Neuro_bunt"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-4 border border-border font-mono text-sm text-muted-foreground hover:border-neon-cyan/40 hover:text-neon-cyan transition-all duration-300"
-                aria-label="Написать в Telegram @neurobunt"
+                aria-label="Написать в Telegram @Neuro_bunt"
               >
                 <Send className="w-4 h-4" aria-hidden="true" />
                 Telegram
