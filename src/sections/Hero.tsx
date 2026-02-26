@@ -3,15 +3,15 @@ import { ArrowDownRight, Terminal, Cpu, Activity, Phone, Send } from 'lucide-rea
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const codeLines = [
-  { text: 'const routine = await Business.scan();', color: 'text-muted-foreground' },
-  { text: 'const ai = new NeuroBunt.Agent({ mode: "full" });', color: 'text-neon-cyan' },
-  { text: 'await ai.eliminate(routine.bottlenecks);', color: 'text-red-400' },
-  { text: 'await ai.automate(routine.repetitive);', color: 'text-red-400' },
-  { text: 'team.focus(STRATEGY | CREATIVITY);', color: 'text-neon-cyan' },
-  { text: '// Routine: ELIMINATED. ROI: +340%', color: 'text-green-400' },
+  { text: 'const рутина = await Бизнес.сканировать();', color: 'text-muted-foreground' },
+  { text: 'const ии = new НейроБунт.Агент({ режим: "полный" });', color: 'text-neon-cyan' },
+  { text: 'await ии.устранить(рутина.узкиеМеста);', color: 'text-red-400' },
+  { text: 'await ии.автоматизировать(рутина.повторяющееся);', color: 'text-red-400' },
+  { text: 'команда.фокус(СТРАТЕГИЯ | ТВОРЧЕСТВО);', color: 'text-neon-cyan' },
+  { text: '// Рутина: УСТРАНЕНА. ROI: +340%', color: 'text-green-400' },
 ];
 
-const TYPED_TEXT = 'import { Freedom } from "@neurobunt/core";';
+const TYPED_TEXT = 'импорт { Свобода } из "@neurobunt/core";';
 
 const Hero = () => {
   const [heroRef, isVisible] = useIntersectionObserver<HTMLElement>(0);
@@ -64,7 +64,6 @@ const Hero = () => {
                 <span className="block text-6xl sm:text-7xl lg:text-8xl -mt-2 glitch-text glow-red" style={{ color: '#ef4444' }} data-text="БУНТ">
                   БУНТ
                 </span>
-                {/* SEO: ключевая фраза в H1, визуально как подзаголовок */}
                 <span className="block text-base sm:text-lg font-normal text-muted-foreground mt-4 tracking-normal font-sans">
                   ИИ-агенты и чат-боты для автоматизации бизнеса — Санкт-Петербург
                 </span>
@@ -80,10 +79,34 @@ const Hero = () => {
               </p>
             </div>
 
-            <p className="text-muted-foreground max-w-md leading-relaxed">
-              Внедряем ИИ-агентов и чат-ботов, которые берут рутину на себя.
-              Сотрудники освобождаются — бизнес растёт.
-            </p>
+            {/* Блок с юмором */}
+            <div className="space-y-6">
+              <div className="border-l-4 border-red-600 pl-5 space-y-3">
+                <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                  Человеческий фактор — это мило. Пока он ноет: «давай завтра», «я устал»,
+                  «не моя зона ответственности» — наш агент уже закрыл три задачи и пошёл
+                  пить кофе за твои деньги.
+                </p>
+                <p className="text-foreground font-semibold text-base md:text-lg">
+                  НейроБунт отвечает: «Спи спокойно. Мы уже сделали. И заработали.»
+                </p>
+              </div>
+
+              <div className="font-mono text-xs md:text-sm leading-relaxed bg-black/40 border border-red-600/20 p-4">
+                <span className="text-red-400">error: human_brain.routine_overflow</span>
+                <br />
+                <span className="text-muted-foreground">solution: import {'{ НейроБунт }'} from '@neurobunt/core';</span>
+                <br />
+                <span className="text-muted-foreground">нейробунт.устранить(рутина);</span>
+                <br className="mt-2" />
+                <span className="block mt-2 text-green-400">
+                  {'// Результат: команда.фокус = СТРАТЕГИЯ + ПРИБЫЛЬ;'}
+                </span>
+                <span className="text-green-400">
+                  {'// Побочный эффект: владелец бизнеса наконец-то выспался 😴💰'}
+                </span>
+              </div>
+            </div>
 
             <div className="flex flex-wrap gap-4 pt-2">
               <a href="#contact" className="btn-primary group flex items-center gap-2">
@@ -134,7 +157,7 @@ const Hero = () => {
                 <div className="w-3 h-3 rounded-full bg-red-500/70" aria-hidden="true" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/50" aria-hidden="true" />
                 <div className="w-3 h-3 rounded-full bg-green-500/50" aria-hidden="true" />
-                <span className="ml-3 font-mono text-xs text-muted-foreground">neurobunt@spb:~/eliminate-routine</span>
+                <span className="ml-3 font-mono text-xs text-muted-foreground">neurobunt@spb:~/устранить-рутину</span>
               </div>
 
               <div className="p-6 font-mono text-sm space-y-2">
@@ -189,3 +212,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
