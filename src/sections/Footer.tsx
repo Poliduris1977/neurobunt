@@ -54,20 +54,20 @@ const Footer = () => {
           </div>
           <div className="flex flex-wrap gap-3">
             <a
-              href="tel:+78125550000"
+              href="tel:+79957187519"
               className="btn-primary py-2.5 px-5 text-xs flex items-center gap-2"
             >
               <Phone className="w-3.5 h-3.5" />
-              +7 (812) 555-00-00
+              +7 995 718 7519
             </a>
             <a
-              href="https://t.me/neurobunt"
+              href="https://t.me/Neuro_bunt"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-cyber py-2.5 px-5 text-xs flex items-center gap-2"
             >
               <Send className="w-3.5 h-3.5" />
-              @neurobunt
+              @Neuro_bunt
             </a>
           </div>
         </div>
