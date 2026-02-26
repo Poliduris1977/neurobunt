@@ -20,7 +20,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'hello@neurobunt.ru', href: 'mailto:hello@neurobunt.ru' },
-  { icon: Phone, label: 'Телефон', value: '+7 (812) 555-00-00', href: 'tel:+78125550000' },
+  { icon: Phone, label: 'Телефон', value: '+7 995 718 7519', href: 'tel:+79957187519' },
   { icon: MapPin, label: 'Адрес', value: 'Санкт-Петербург', href: '#' },
   { icon: Clock, label: 'Режим работы', value: 'Пн–Пт: 9:00–19:00', href: '#' },
 ];
