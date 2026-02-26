@@ -33,7 +33,7 @@ const Footer = () => {
   ];
 
   const social = [
-    { icon: Send, href: 'https://t.me/neurobunt', label: 'Telegram' },
+    { icon: Send, href: 'https://t.me/Neuro_bunt', label: 'Telegram' },
     { icon: Instagram, href: 'https://instagram.com/neurobunt', label: 'Instagram' },
     { icon: Linkedin, href: 'https://linkedin.com/company/neurobunt', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/neurobunt', label: 'GitHub' },
