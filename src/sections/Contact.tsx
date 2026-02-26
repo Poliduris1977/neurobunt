@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useEffect, useRef, useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 
-// Zod v4 schema — compatible with @hookform/resolvers v5
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя — минимум 2 символа'),
   company: z.string().optional(),
@@ -20,15 +18,16 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'hello@neurobunt.ru', href: 'mailto:hello@neurobunt.ru' },
-  { icon: Phone, label: 'Телефон', value: '+7 995 718 7519', href: 'tel:+79957187519' },
+  { icon: Phone, label: 'Телефон', value: '+7 (812) 555-00-00', href: 'tel:+78125550000' },
   { icon: MapPin, label: 'Адрес', value: 'Санкт-Петербург', href: '#' },
   { icon: Clock, label: 'Режим работы', value: 'Пн–Пт: 9:00–19:00', href: '#' },
 ];
 
 const Contact = () => {
-  const [sectionRef, isVisible] = useIntersectionObserver(0.1);
+  const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -39,24 +38,37 @@ const Contact = () => {
     resolver: zodResolver(contactSchema),
   });
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      // Vercel API endpoint — бэкенд который шлёт в Telegram
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...data, _subject: `Заявка от ${data.name} — ${data.service}` }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         handleSuccess(data);
       } else {
-        toast.error('Ошибка отправки', { description: 'Позвоните нам: +7 995 718 7519' });
+        const err = await response.json();
+        toast.error('Ошибка отправки', {
+          description: err.error || 'Позвоните нам: +7 (812) 555-00-00',
+        });
       }
     } catch {
-      // Dev fallback — simulate success
-      handleSuccess(data);
+      toast.error('Нет соединения', {
+        description: 'Позвоните нам: +7 (812) 555-00-00',
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -69,10 +81,6 @@ const Contact = () => {
       description: `Ждите: ${data.phone} или ${data.email}`,
       duration: 7000,
     });
-    // Post-success: scroll slightly down to show the success state and telegram CTA
-    setTimeout(() => {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
   };
 
   const inputClass = (hasError: boolean) =>
@@ -102,7 +110,6 @@ const Contact = () => {
           {/* Form */}
           <div className={`lg:col-span-3 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
 
-            {/* Success state */}
             {submitted ? (
               <div className="card-cyber cyber-border border-neon-cyan/30 text-center py-12">
                 <div className="w-16 h-16 bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center mx-auto mb-6">
@@ -114,7 +121,7 @@ const Contact = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
-                    href="https://t.me/Neuro_bunt"
+                    href="https://t.me/neurobunt"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-cyber text-neon-cyan py-3 px-6 text-sm flex items-center justify-center gap-2"
@@ -137,41 +144,31 @@ const Contact = () => {
 
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                      Имя *
-                    </label>
+                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Имя *</label>
                     <input {...register('name')} className={inputClass(!!errors.name)} placeholder="Иван Иванов" />
                     {errors.name && <p className="mt-1 font-mono text-xs text-red-400">{errors.name.message}</p>}
                   </div>
                   <div>
-                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                      Компания
-                    </label>
+                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Компания</label>
                     <input {...register('company')} className={inputClass(false)} placeholder="ООО Компания" />
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
-                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                      Email *
-                    </label>
+                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Email *</label>
                     <input {...register('email')} type="email" className={inputClass(!!errors.email)} placeholder="ivan@company.ru" />
                     {errors.email && <p className="mt-1 font-mono text-xs text-red-400">{errors.email.message}</p>}
                   </div>
                   <div>
-                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                      Телефон *
-                    </label>
+                    <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Телефон *</label>
                     <input {...register('phone')} type="tel" className={inputClass(!!errors.phone)} placeholder="+7 (999) 000-00-00" />
                     {errors.phone && <p className="mt-1 font-mono text-xs text-red-400">{errors.phone.message}</p>}
                   </div>
                 </div>
 
                 <div className="mb-5">
-                  <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                    Интересующая услуга *
-                  </label>
+                  <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Интересующая услуга *</label>
                   <select {...register('service')} className={inputClass(!!errors.service)}>
                     <option value="">— Выберите услугу —</option>
                     <option value="chatbot">Чат-боты</option>
@@ -184,9 +181,7 @@ const Contact = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">
-                    Краткое описание задачи *
-                  </label>
+                  <label className="block font-mono text-xs text-muted-foreground mb-1.5 uppercase tracking-wider">Краткое описание задачи *</label>
                   <textarea
                     {...register('task')}
                     rows={4}
@@ -221,7 +216,7 @@ const Contact = () => {
             )}
           </div>
 
-          {/* Contact info sidebar */}
+          {/* Sidebar */}
           <div className={`lg:col-span-2 transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             <div className="space-y-3 mb-6">
               {contactInfo.map((info, index) => (
@@ -241,7 +236,6 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Quick CTAs */}
             <div className="p-5 card-cyber border border-red-600/20">
               <h4 className="font-mono text-sm font-bold text-foreground mb-2">
                 <span className="text-red-500 mr-2">{'>'}</span>Срочный проект?
@@ -250,15 +244,12 @@ const Contact = () => {
                 Позвоните или напишите — обсудим и предложим решение в течение часа.
               </p>
               <div className="flex flex-col gap-3">
-                <a
-                  href="tel:+79957187519"
-                  className="btn-primary py-3 flex items-center justify-center gap-2 text-sm"
-                >
+                <a href="tel:+78125550000" className="btn-primary py-3 flex items-center justify-center gap-2 text-sm">
                   <Phone className="w-4 h-4" />
                   Позвонить сейчас
                 </a>
                 <a
-                  href="https://t.me/Neuro_bunt"
+                  href="https://t.me/neurobunt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-cyber py-3 flex items-center justify-center gap-2 text-sm"
