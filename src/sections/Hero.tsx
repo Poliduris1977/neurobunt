@@ -92,7 +92,7 @@ const Hero = () => {
               </a>
 
               <a
-                href="tel:+78125550000"
+                href="tel:+79957187519"
                 className="btn-cyber flex items-center gap-2 py-4 px-6"
                 aria-label="Позвонить нам: +7 995 718 7519"
               >
