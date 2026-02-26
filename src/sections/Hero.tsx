@@ -84,7 +84,7 @@ const Hero = () => {
               <div className="border-l-4 border-red-600 pl-5 space-y-3">
                 <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                   Человеческий фактор — это мило. Пока он ноет: «давай завтра», «я устал»,
-                  «не моя зона ответственности» — наш агент уже закрыл три задачи и пошёл
+                  «не моя зона ответственности» — наш агент уже закрыл три задачи и даже не пошёл
                   пить кофе за твои деньги.
                 </p>
                 <p className="text-foreground font-semibold text-base md:text-lg">
