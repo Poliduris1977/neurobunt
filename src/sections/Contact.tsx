@@ -51,7 +51,7 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
       // Vercel API endpoint — бэкенд который шлёт в Telegram
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://neurobunt.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
