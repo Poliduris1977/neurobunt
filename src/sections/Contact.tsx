@@ -52,7 +52,7 @@ const Contact = () => {
       if (response.ok) {
         handleSuccess(data);
       } else {
-        toast.error('Ошибка отправки', { description: 'Позвоните нам: +7 (812) 555-00-00' });
+        toast.error('Ошибка отправки', { description: 'Позвоните нам: +7 995 718 7519' });
       }
     } catch {
       // Dev fallback — simulate success
@@ -114,7 +114,7 @@ const Contact = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
-                    href="https://t.me/neurobunt"
+                    href="https://t.me/Neuro_bunt"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-cyber text-neon-cyan py-3 px-6 text-sm flex items-center justify-center gap-2"
@@ -251,14 +251,14 @@ const Contact = () => {
               </p>
               <div className="flex flex-col gap-3">
                 <a
-                  href="tel:+78125550000"
+                  href="tel:+79957187519"
                   className="btn-primary py-3 flex items-center justify-center gap-2 text-sm"
                 >
                   <Phone className="w-4 h-4" />
                   Позвонить сейчас
                 </a>
                 <a
-                  href="https://t.me/neurobunt"
+                  href="https://t.me/Neuro_bunt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-cyber py-3 flex items-center justify-center gap-2 text-sm"
