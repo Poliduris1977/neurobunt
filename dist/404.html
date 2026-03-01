@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>НейроБунт</title>
+  <script>
+    // GitHub Pages SPA routing
+    // Сохраняем полный URL в sessionStorage и редиректим на главную
+    // index.html потом читает sessionStorage и восстанавливает путь
+    sessionStorage.redirect = location.href;
+    window.location.replace('/');
+  </script>
+</head>
+<body></body>
+</html>
