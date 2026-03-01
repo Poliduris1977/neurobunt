@@ -297,3 +297,101 @@
   }
   .glitch-text::before, .glitch-text::after { display: none !important; }
 }
+
+/* ─── Blog article content styles ─────────────────────────────────────────── */
+
+.blog-content h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.blog-content h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin: 2rem 0 0.75rem;
+}
+
+.blog-content p {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  font-family: 'Inter', sans-serif;
+}
+
+.blog-content strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.blog-content ul li::marker {
+  color: hsl(var(--brand-red));
+}
+
+.blog-content ol li::marker {
+  color: hsl(var(--neon-cyan));
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.blog-content a {
+  color: hsl(var(--neon-cyan));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.blog-content a:hover {
+  color: hsl(var(--brand-red));
+}
+
+.blog-content blockquote {
+  border-left: 2px solid hsl(var(--brand-red));
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.blog-content code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: hsl(var(--dark-card));
+  border: 1px solid hsl(var(--border));
+  padding: 0.15em 0.4em;
+  color: hsl(var(--neon-cyan));
+  border-radius: 2px;
+}
+
+.blog-content pre {
+  background: hsl(var(--dark-card));
+  border: 1px solid hsl(var(--border));
+  border-left: 2px solid hsl(var(--neon-cyan));
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.blog-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9em;
+}

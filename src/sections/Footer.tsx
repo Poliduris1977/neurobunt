@@ -26,7 +26,7 @@ const Footer = () => {
       title: 'Поддержка',
       links: [
         { label: 'FAQ', href: '#contact', note: true },
-        { label: 'Блог', href: '#contact', note: true },
+        { label: 'Блог', href: '/blog' },
         { label: 'Контакты', href: '#contact' },
       ],
     },
