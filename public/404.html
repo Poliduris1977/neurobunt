@@ -4,16 +4,11 @@
   <meta charset="utf-8">
   <title>НейроБунт</title>
   <script>
-    // GitHub Pages SPA routing trick
-    // Перенаправляет /blog/slug → /?/blog/slug
-    // App.tsx потом разбирает обратно
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1).join('/') +
-      '/?/' + l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '') +
-      l.hash
-    );
+    // GitHub Pages SPA routing
+    // Сохраняем полный URL в sessionStorage и редиректим на главную
+    // index.html потом читает sessionStorage и восстанавливает путь
+    sessionStorage.redirect = location.href;
+    window.location.replace('/');
   </script>
 </head>
 <body></body>
