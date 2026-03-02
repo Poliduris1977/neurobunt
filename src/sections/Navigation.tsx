@@ -1,25 +1,28 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Cpu } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const navLinks = [
-  { href: '#mission', label: 'Миссия', id: 'mission' },
-  { href: '#services', label: 'Услуги', id: 'services' },
-  { href: '#process', label: 'Процесс', id: 'process' },
-  { href: '#benefits', label: 'Преимущества', id: 'benefits' },
-  { href: '#contact', label: 'Контакты', id: 'contact' },
+  { href: '/#mission',   label: 'Миссия',        id: 'mission' },
+  { href: '/#services',  label: 'Услуги',         id: 'services' },
+  { href: '/#process',   label: 'Процесс',        id: 'process' },
+  { href: '/#benefits',  label: 'Преимущества',   id: 'benefits' },
+  { href: '/#contact',   label: 'Контакты',       id: 'contact' },
 ];
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Active section detection via IntersectionObserver would be cleaner,
-      // but scroll-based is simpler and reliable for this layout
+      if (!isHomePage) return; // на страницах блога не отслеживаем секции
+
       const sections = navLinks.map(l => document.getElementById(l.id)).filter(Boolean);
       const scrollMid = window.scrollY + window.innerHeight * 0.4;
 
@@ -33,9 +36,9 @@ const Navigation = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // run once on mount
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   return (
     <nav
@@ -48,8 +51,8 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
 
-          {/* Logo — НейроБунт: white + red */}
-          <a href="#" className="flex items-center gap-2 group">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2 group">
             <div className="relative">
               <Cpu
                 className="w-8 h-8 text-red-500 transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]"
@@ -64,7 +67,7 @@ const Navigation = () => {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.id;
+              const isActive = isHomePage && activeSection === link.id;
               return (
                 <a
                   key={link.href}
@@ -74,7 +77,6 @@ const Navigation = () => {
                   }`}
                 >
                   {link.label}
-                  {/* Underline: red for active, cyan for hover */}
                   <span
                     className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
                       isActive
@@ -85,11 +87,28 @@ const Navigation = () => {
                 </a>
               );
             })}
+            <a
+              href="/blog"
+              className={`relative font-mono text-sm transition-colors duration-300 group ${
+                location.pathname.startsWith('/blog')
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              Блог
+              <span
+                className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
+                  location.pathname.startsWith('/blog')
+                    ? 'w-full bg-red-500'
+                    : 'w-0 bg-neon-cyan group-hover:w-full'
+                }`}
+              />
+            </a>
           </div>
 
           {/* CTA */}
           <div className="hidden md:block">
-            <a href="#contact" className="btn-primary text-sm py-3 px-6">
+            <a href="/#contact" className="btn-primary text-sm py-3 px-6">
               Начать проект
             </a>
           </div>
@@ -125,16 +144,34 @@ const Navigation = () => {
               key={link.href}
               href={link.href}
               className={`block font-mono text-lg transition-colors ${
-                activeSection === link.id ? 'text-red-400' : 'text-muted-foreground hover:text-foreground'
+                isHomePage && activeSection === link.id
+                  ? 'text-red-400'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              {activeSection === link.id && <span className="text-red-500 mr-2">›</span>}
+              {isHomePage && activeSection === link.id && (
+                <span className="text-red-500 mr-2">›</span>
+              )}
               {link.label}
             </a>
           ))}
           <a
-            href="#contact"
+            href="/blog"
+            className={`block font-mono text-lg transition-colors ${
+              location.pathname.startsWith('/blog')
+                ? 'text-red-400'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            {location.pathname.startsWith('/blog') && (
+              <span className="text-red-500 mr-2">›</span>
+            )}
+            Блог
+          </a>
+          <a
+            href="/#contact"
             className="block btn-primary text-center mt-6 py-3"
             onClick={() => setIsMobileMenuOpen(false)}
           >
